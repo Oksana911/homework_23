@@ -10,15 +10,12 @@ DATA_DIR = os.path.join(BASE_DIR, "data")
 
 @app.route("/perform_query", methods=['POST'])
 def perform_query():
-
     try:
         data = request.json
         file_name = data['file_name']
-        os.path.exists(os.path.join(DATA_DIR, file_name))
+        os.path.join(DATA_DIR, file_name)
     except Exception as e:
         return e, 400
-
-
 
     return do_query(data)
     # return app.response_class('', content_type="text/plain")
