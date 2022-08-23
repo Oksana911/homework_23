@@ -1,10 +1,11 @@
 import os
+import re
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 DATA_DIR = os.path.join(BASE_DIR, "data")
 
 
-def do_cmd(cmd, value, data):
+def do_cmd(cmd: str, value: str, data: list[str]) -> list[str]:
     """ Обрабатывает запрос с командами """
     if cmd == 'filter':
         result = filter(lambda line: value in line, data)
@@ -22,9 +23,12 @@ def do_cmd(cmd, value, data):
     elif cmd == 'limit':
         result = data[:int(value)]
         return result
+    elif cmd == 'regex':
+        regex = re.compile(value)
+        return list(filter(lambda v: regex.search(v), data))
 
 
-def do_query(params):
+def do_query(params: dict) -> list[str]:
     """ Считывает файл и возвращает обработанный результат """
     with open(os.path.join(DATA_DIR, params['file_name'])) as f:
         file_data = f.readlines()  # f.read().split('\n')
