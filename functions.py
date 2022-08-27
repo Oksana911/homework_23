@@ -8,7 +8,7 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 DATA_DIR = os.path.join(BASE_DIR, "data")
 
 
-def do_cmd(cmd: str, value: str, data: Iterable) -> Iterable:
+def do_cmd(cmd: str, value: str, data: list[str]) -> list[str]:
     """ Обрабатывает запрос с командами """
     if cmd == 'filter':
         result = list(filter(lambda line: value in line, data))
